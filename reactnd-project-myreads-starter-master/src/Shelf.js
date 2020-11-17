@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import BookItem from "./BookItem";
 
 class Shelf extends Component {
-  state = {};
+  state = {
+
+  };
+
+
+
   render() {
+    console.log(this.state.booksOnShelf)
     return (
       <div>
         <div className="bookshelf">
@@ -11,10 +17,12 @@ class Shelf extends Component {
 
           <ol className="books-grid">
             {this.props.books.map((book) => (
-              <BookItem
+              <BookItem onUpdatePage = {this.props.onUpdatePage}
+                book = {book}
                 Title={book.title}
                 Author={book.authors}
                 Imgurl={book.imageLinks.thumbnail}
+                shelf = {book.shelf}
               />
             ))}
           </ol>

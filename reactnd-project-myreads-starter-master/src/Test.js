@@ -19,10 +19,16 @@ class Test extends Component {
         books: allBooks,
       })
     );
+    console.log("allbooks : " + this.state.books);
   }
 
-  handleBookState = (value) => {
-    this.setState ({books:value})
+  updatePage = () => {
+    console.log("reached !");
+    BooksAPI.getAll().then((allBooks) =>
+      this.setState({
+        books: allBooks,
+      })
+    );
   };
 
   render() {
@@ -35,18 +41,23 @@ class Test extends Component {
           path="/"
           render={() => (
             <div>
-              <h1 className=".list-books-title">My Reads</h1>
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
               <Shelf
+                onUpdatePage={this.updatePage}
                 books={this.state.books.filter(
                   (book) => book.shelf === "currentlyReading"
                 )}
                 shelfName="Currently Reading"
               />
               <Shelf
+                onUpdatePage={this.updatePage}
                 books={this.state.books.filter((book) => book.shelf === "read")}
                 shelfName="Read"
               />
               <Shelf
+                onUpdatePage={this.updatePage}
                 books={this.state.books.filter(
                   (book) => book.shelf === "wantToRead"
                 )}
@@ -61,7 +72,7 @@ class Test extends Component {
           path="/add"
           render={() => (
             <div>
-              <BooksLibrary />
+              <BooksLibrary onUpdatePage={this.updatePage} />
             </div>
           )}
         />

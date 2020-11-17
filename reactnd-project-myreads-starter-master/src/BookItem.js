@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SelectMenu from "./SelectMenu";
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from "./BooksAPI";
 
 class BookItem extends Component {
   state = {
@@ -8,8 +8,14 @@ class BookItem extends Component {
   };
 
   handleBookState = (e) => {
+    // console.log("the target value :" + e.target.value);
+    // console.log("book changed state to : " + this.props.shelf);
+    console.log(this.props.book);
+    console.log(e.target.value);
     this.setState({ bookState: e.target.value });
-    BooksAPI.update(this.props , e.target.value);
+    BooksAPI.update(this.props.book, e.target.value).then(() =>
+      this.props.onUpdatePage()
+    );
   };
 
   render() {
@@ -26,7 +32,11 @@ class BookItem extends Component {
                   backgroundImage: `url(${this.props.Imgurl})`,
                 }}
               />
-              <SelectMenu title={this.props.Title} onHandleBookState = {this.handleBookState}/>
+              <SelectMenu
+                book={this.props.book}
+                title={this.props.Title}
+                onHandleBookState={this.handleBookState}
+              />
             </div>
             <div className="book-title">{this.props.Title}</div>
             <div className="book-authors">{this.props.Author}</div>
