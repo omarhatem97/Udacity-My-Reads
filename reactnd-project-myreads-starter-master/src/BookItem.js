@@ -19,6 +19,7 @@ class BookItem extends Component {
   };
 
   render() {
+    console.log(this.props.book);
     return (
       <div>
         <li key={this.props.id}>
@@ -29,7 +30,7 @@ class BookItem extends Component {
                 style={{
                   width: 128,
                   height: 193,
-                  backgroundImage: `url(${this.props.Imgurl})`,
+                  backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`,
                 }}
               />
               <SelectMenu

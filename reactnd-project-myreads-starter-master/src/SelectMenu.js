@@ -6,17 +6,17 @@ class SelectMenu extends Component {
   };
 
   render() {
-    if (this.props.book.title === "The Literature of Satire") {
-      console.log(this.props.book.title);
-      console.log(this.state.value);
-    }
+    // if (this.props.book.title === "The Literature of Satire") {
+    //   console.log(this.props.book.title);
+    //   console.log(this.state.value);
+    // }
 
     return (
       <div>
         <div className="book-shelf-changer">
           {/* {console.log('book state :' + this.props.book.shelf)} */}
           <select
-            value={this.state.value}
+            value={this.props.book.shelf}
             onChange={this.props.onHandleBookState}
           >
             <option value="move" disabled>
