@@ -19,20 +19,25 @@ class BookItem extends Component {
   };
 
   render() {
-    console.log(this.props.book);
+    console.log(this.props.book.imageLinks);
     return (
       <div>
         <li key={this.props.id}>
           <div className="book">
             <div className="book-top">
-              <div
-                className="book-cover"
-                style={{
-                  width: 128,
-                  height: 193,
-                  backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`,
-                }}
-              />
+              {this.props.book.imageLinks !== undefined && (
+                <div
+                  className="book-cover"
+                  style={{
+                    width: 128,
+                    height: 193,
+                    backgroundImage: `url(${
+                      this.props.book.imageLinks.thumbnail
+                    })`,
+                  }}
+                />
+              )}
+
               <SelectMenu
                 book={this.props.book}
                 title={this.props.Title}

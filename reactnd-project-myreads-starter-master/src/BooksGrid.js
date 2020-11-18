@@ -66,7 +66,7 @@ class BooksGrid extends Component {
                 book={book}
                 Title={book.title}
                 Author={book.authors}
-                Imgurl={book.imageLinks.thumbnail}
+               // Imgurl={book.imageLinks.thumbnail}
                 book = {book}
               />
             ))}
