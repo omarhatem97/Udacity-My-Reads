@@ -19,7 +19,7 @@ class BooksApp extends Component {
         books: allBooks,
       })
     );
-    console.log("allbooks : " + this.state.books);
+    
   }
 
   updatePage = () => {
@@ -32,7 +32,7 @@ class BooksApp extends Component {
   };
 
   render() {
-    console.log(this.state.books);
+    
 
     return (
       <div className="app">
