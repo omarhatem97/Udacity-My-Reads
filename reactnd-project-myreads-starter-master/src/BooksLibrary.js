@@ -9,29 +9,18 @@ class BooksLibrary extends Component {
     filteredBooks: [],
   };
 
-  // componentDidMount() {
-  //   BooksAPI.getAll().then((allBooks) =>
-  //     this.setState({
-  //       filteredBooks: allBooks,
-  //     })
-  //   );
-  // }
-
   UpdateQuery = (updatedQuery) => {
     this.setState(() => ({
       query: updatedQuery,
     }));
 
     BooksAPI.search(updatedQuery).then((filterd) => {
-      if (filterd == undefined) {
-        console.log("reached undefined");
+      //handle if nothing returned from API or object with error key is returned
+      if (filterd === undefined) {
         this.setState({ filteredBooks: [] });
       } else if ("error" in filterd) {
-        console.log("reached error in filtered");
         this.setState({ filteredBooks: [] });
       } else {
-        console.log("reached there are books");
-        console.log(filterd);
         this.setState({ filteredBooks: filterd });
       }
     });

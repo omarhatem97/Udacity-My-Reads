@@ -1,31 +1,84 @@
-import React , { Component } from 'react'
- //import * as BooksAPI from './BooksAPI'
-import './App.css'
-import Shelf from './Shelf'
-import {Route, BrowserRouter as Router} from 'react-router-dom'
-import BooksLibrary from './BooksLibrary'
+import React, { Component } from "react";
+import Shelf from "./Shelf";
+import "./App.css";
+import Add from "./Add";
+import { Route } from "react-router-dom";
+import * as BooksAPI from "./BooksAPI";
+import BooksLibrary from "./BooksLibrary";
 
 class BooksApp extends Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
+    books: [],
+  };
+
+  //book object returned from api has keys : title, authors, imageLinks.thumbnail, shelf (holding the state of the book)
+
+  componentDidMount() {
+    BooksAPI.getAll().then((allBooks) =>
+      this.setState({
+        books: allBooks,
+      })
+    );
+    console.log("allbooks : " + this.state.books);
   }
 
+  updatePage = () => {
+    console.log("reached !");
+    BooksAPI.getAll().then((allBooks) =>
+      this.setState({
+        books: allBooks,
+      })
+    );
+  };
+
   render() {
+    console.log(this.state.books);
+
     return (
       <div className="app">
-       <Router>
-         <Route exact path= '/' component = {Shelf}/>
-         <Route exact path= '/add' component = {BooksLibrary}/>
-       </Router>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div>
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <Shelf
+                onUpdatePage={this.updatePage}
+                books={this.state.books.filter(
+                  (book) => book.shelf === "currentlyReading"
+                )}
+                shelfName="Currently Reading"
+              />
+              <Shelf
+                onUpdatePage={this.updatePage}
+                books={this.state.books.filter((book) => book.shelf === "read")}
+                shelfName="Read"
+              />
+              <Shelf
+                onUpdatePage={this.updatePage}
+                books={this.state.books.filter(
+                  (book) => book.shelf === "wantToRead"
+                )}
+                shelfName="Want To Read"
+              />
+              <Add />
+            </div>
+          )}
+        />
+        <Route
+          exact
+          path="/add"
+          render={() => (
+            <div>
+              <BooksLibrary onUpdatePage={this.updatePage} />
+            </div>
+          )}
+        />
       </div>
-    )
+    );
   }
 }
 
-export default BooksApp
+export default BooksApp;

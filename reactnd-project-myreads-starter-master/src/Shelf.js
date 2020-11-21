@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import BookItem from "./BookItem";
 
 function Shelf(props) {
@@ -9,7 +9,7 @@ function Shelf(props) {
 
         <ol className="books-grid">
           {props.books.map((book) => (
-            <BookItem
+            <BookItem key={book.id}
               onUpdatePage={props.onUpdatePage}
               book={book}
               Title={book.title}

@@ -4,23 +4,17 @@ import * as BooksAPI from "./BooksAPI";
 
 class BookItem extends Component {
 
-
   handleBookState = (e) => {
-    // console.log("the target value :" + e.target.value);
-    // console.log("book changed state to : " + this.props.shelf);
-    console.log(this.props.book);
-    console.log(e.target.value);
-    // this.setState({ bookState: e.target.value });
     BooksAPI.update(this.props.book, e.target.value).then(() =>
       this.props.onUpdatePage()
     );
   };
 
   render() {
-    console.log(this.props.book.imageLinks);
+
     return (
       <div>
-        <li key={this.props.id}>
+        <li key={this.props.book.id}>
           <div className="book">
             <div className="book-top">
               {this.props.book.imageLinks !== undefined && (

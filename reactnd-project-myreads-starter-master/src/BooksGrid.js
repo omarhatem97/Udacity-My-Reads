@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import BooksApp from "./App";
 import BookItem from "./BookItem";
 import * as BooksAPI from "./BooksAPI";
 
 class BooksGrid extends Component {
-  //books : title, authors, imageLinks.thumbnail, shelf (holding the state of the book)
+  //book object returned from api contain imp keys : title, authors, imageLinks.thumbnail, shelf (holding the state of the book)
 
   state = {
     myBooks: [],
@@ -19,52 +18,30 @@ class BooksGrid extends Component {
     });
   }
 
-
   render() {
-    console.log("rerender!");
     const { query, filteredBooks } = this.props;
 
-    //console.log("books :" + books);
+    let showingBooks = query === "" ? [] : filteredBooks;
 
-    // console.log('filterd books: ' + filteredBooks);
-
-    let showingBooks =
-      query === ""
-        ? [] //NOTE! : at final step set it to [] 'empty array'
-        : filteredBooks;
-
-    //console.log(showingBooks);
-
-    //update the shelf of the searched books from the API //
-    // let myBooks = this.getMyBooks();
-
-    //TODO
-    //Enta 3yz t filter mn el showing books , el books elle 3ndak mosbakan w t update le shelf bt3ha
     let matchedBook = [];
-    showingBooks.map((showing) => {
-      // console.log(this.state.myBooks);
-      // console.log('showing title : ' + showing.title);
+    showingBooks.forEach((showing) => {
       matchedBook = this.state.myBooks.filter((mine) => mine.id === showing.id);
-      console.log(matchedBook);
+
       if (matchedBook.length) {
-        console.log("the shelf :" + matchedBook[0].shelf);
         showing.shelf = matchedBook[0].shelf;
-        console.log("title:" + showing.title + " the shelf :" + showing.shelf);
       } else showing.shelf = "none";
     });
 
-    console.log(showingBooks);
     return (
       <div>
         <div className="search-books-results">
           <ol className="books-grid">
             {showingBooks.map((book) => (
               <BookItem
+                key={book.id}
                 onUpdatePage={this.props.onUpdatePage}
-                book={book}
                 Title={book.title}
                 Author={book.authors}
-                // Imgurl={book.imageLinks.thumbnail}
                 book={book}
               />
             ))}
