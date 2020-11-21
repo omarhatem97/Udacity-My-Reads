@@ -6,13 +6,13 @@ import * as BooksAPI from "./BooksAPI";
 class BooksLibrary extends Component {
   state = {
     query: "",
-    filterdBooks: [],
+    filteredBooks: [],
   };
 
   // componentDidMount() {
   //   BooksAPI.getAll().then((allBooks) =>
   //     this.setState({
-  //       filterdBooks: allBooks,
+  //       filteredBooks: allBooks,
   //     })
   //   );
   // }
@@ -25,14 +25,14 @@ class BooksLibrary extends Component {
     BooksAPI.search(updatedQuery).then((filterd) => {
       if (filterd == undefined) {
         console.log("reached undefined");
-        this.setState({ filterdBooks: [] });
+        this.setState({ filteredBooks: [] });
       } else if ("error" in filterd) {
         console.log("reached error in filtered");
-        this.setState({ filterdBooks: [] });
+        this.setState({ filteredBooks: [] });
       } else {
-        console.log('reached there are books');
-        console.log(filterd)
-        this.setState({ filterdBooks: filterd });
+        console.log("reached there are books");
+        console.log(filterd);
+        this.setState({ filteredBooks: filterd });
       }
     });
   };
@@ -49,7 +49,7 @@ class BooksLibrary extends Component {
           <BooksGrid
             onUpdatePage={this.props.onUpdatePage}
             query={this.state.query}
-            filterdBooks={this.state.filterdBooks}
+            filteredBooks={this.state.filteredBooks}
           />
         </div>
       </div>

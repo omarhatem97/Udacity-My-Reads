@@ -7,7 +7,6 @@ class BooksGrid extends Component {
   //books : title, authors, imageLinks.thumbnail, shelf (holding the state of the book)
 
   state = {
-    filterdBooks: [],
     myBooks: [],
   };
 
@@ -20,20 +19,19 @@ class BooksGrid extends Component {
     });
   }
 
-  markMyBooks = (showingBooks) => {};
 
   render() {
     console.log("rerender!");
-    const { query, filterdBooks } = this.props;
+    const { query, filteredBooks } = this.props;
 
     //console.log("books :" + books);
 
-    // console.log('filterd books: ' + filterdBooks);
+    // console.log('filterd books: ' + filteredBooks);
 
     let showingBooks =
       query === ""
         ? [] //NOTE! : at final step set it to [] 'empty array'
-        : filterdBooks;
+        : filteredBooks;
 
     //console.log(showingBooks);
 
@@ -66,8 +64,8 @@ class BooksGrid extends Component {
                 book={book}
                 Title={book.title}
                 Author={book.authors}
-               // Imgurl={book.imageLinks.thumbnail}
-                book = {book}
+                // Imgurl={book.imageLinks.thumbnail}
+                book={book}
               />
             ))}
           </ol>
